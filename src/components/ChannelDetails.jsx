@@ -9,19 +9,20 @@ const ChannelDetail = () => {
   const [videos, setVideos] = useState([])
   const { id } = useParams()
 
-  const fetchResults = async () => {
-    try {
-      const channelData = await fetchFromAPI(`channels?part=snippet&id=${id}`)
-      setChannelDetail(channelData?.items[0])
-
-      const videosData = await fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`)
-      setVideos(videosData?.items)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   useEffect(() => {
+    const fetchResults = async () => {
+      try {
+        const channelData = await fetchFromAPI(`channels?part=snippet&id=${id}`)
+        setChannelDetail(channelData?.items[0])
+
+        const videosData = await fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`)
+        setVideos(videosData?.items)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+
     fetchResults()
   }, [id])
 
@@ -33,7 +34,7 @@ const ChannelDetail = () => {
           background: 'linear-gradient(90deg, rgba(0,238,247,1) 0%, rgba(206,3,184,1) 100%, rgba(0,212,255,1) 100%)',
           zIndex: 10,
         }} />
-        <ChannelCard channelDetail={channelDetail} marginTop="-93px" />
+        <ChannelCard channelDetail={channelDetail} marginTop="-110px" />
       </Box>
       <Box p={2} display="flex">
         <Box sx={{ mr: { sm: '100px' } }} />
